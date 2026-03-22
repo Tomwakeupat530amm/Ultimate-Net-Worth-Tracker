@@ -1,0 +1,59 @@
+{
+  "Auth": {
+    "login": "Log in",
+    "signup": "Sign up",
+    "email": "Email",
+    "password": "Password",
+    "title": "Net Worth Tracker"
+  },
+  "Settings": {
+    "title": "Settings",
+    "startingPeriod": "Starting Period",
+    "startingPeriodDesc": "Set your initial tracking month and year.",
+    "month": "Starting Month",
+    "year": "Starting Year",
+    "save": "Save Changes",
+    "categories": "Categories Management",
+    "categoriesDesc": "Enable or disable visibility for your asset and liability categories.",
+    "assets": "Assets",
+    "liabilities": "Liabilities"
+  },
+  "NetWorth": {
+    "title": "Net Worth Tracker",
+    "desc": "Track your assets and liabilities month by month.",
+    "assets": "ASSETS",
+    "totalAssets": "Total Assets",
+    "liabilities": "LIABILITIES",
+    "totalLiabilities": "Total Liabilities",
+    "netWorth": "NET WORTH",
+    "empty": "No active categories found. Please configure them in Settings.",
+    "syncing": "Syncing Data...",
+    "saved": "All changes saved"
+  },
+  "Contributions": {
+    "title": "Contributions Tracker",
+    "desc": "Track your incoming and outgoing cash flows.",
+    "tabInflow": "Deposit (In-Flow)",
+    "tabOutflow": "Withdrawal (Out-Flow)",
+    "assets": "ASSETS",
+    "totalAssets": "Subtotal Assets",
+    "liabilities": "LIABILITIES",
+    "totalLiabilities": "Subtotal Liabilities",
+    "netContribution": "Total Flow",
+    "empty": "No active categories found. Please configure them in Settings.",
+    "syncing": "Syncing Data...",
+    "saved": "All changes saved"
+  },
+  "Dashboard": {
+    "title": "Dashboard",
+    "desc": "Overview of your net worth and asset allocation.",
+    "totalAssets": "Total Assets",
+    "totalLiabilities": "Total Liabilities",
+    "netWorth": "Net Worth",
+    "growth": "MoM Growth",
+    "netWorthChart": "Net Worth Development",
+    "allocationChart": "Asset Allocation",
+    "vsLastMonth": "vs last month",
+    "latestSnapshot": "Latest Snapshot"
+  }
+}
