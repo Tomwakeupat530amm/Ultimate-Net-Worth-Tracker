@@ -4,7 +4,8 @@
         "signup": "Đăng ký",
         "email": "Email",
         "password": "Mật khẩu",
-        "title": "Trình Theo Dõi Tài Sản"
+        "title": "Trình Theo Dõi Tài Sản",
+        "checkEmail": "Vui lòng kiểm tra email của bạn để xác nhận tài khoản."
     },
     "Settings": {
         "title": "Cài Đặt",

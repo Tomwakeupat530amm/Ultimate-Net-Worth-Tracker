@@ -12,6 +12,7 @@ interface LoginFormProps {
         password: string
         login: string
         signup: string
+        checkEmail: string
     }
 }
 
@@ -27,8 +28,8 @@ export default function LoginForm({ t }: LoginFormProps) {
             toast.error(result.error)
             setIsLoading(false)
         } else if (result?.success) {
-            if (result.message) {
-                toast.success(result.message)
+            if (result.confirmationRequired) {
+                toast.success(t.checkEmail)
                 setIsLoading(false)
             } else {
                 router.push('/dashboard')

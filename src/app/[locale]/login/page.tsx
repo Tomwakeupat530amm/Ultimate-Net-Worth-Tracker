@@ -15,7 +15,8 @@ export default async function LoginPage() {
                     email: t('email'),
                     password: t('password'),
                     login: t('login'),
-                    signup: t('signup')
+                    signup: t('signup'),
+                    checkEmail: t('checkEmail')
                 }} />
             </div>
         </div>

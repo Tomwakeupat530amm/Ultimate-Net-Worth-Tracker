@@ -36,7 +36,7 @@ export async function signup(formData: FormData) {
 
     // If confirmation is required, session will be null
     if (!data.session) {
-        return { success: true, message: 'Check your email for the confirmation link.' }
+        return { success: true, confirmationRequired: true }
     }
 
     revalidatePath('/', 'layout')

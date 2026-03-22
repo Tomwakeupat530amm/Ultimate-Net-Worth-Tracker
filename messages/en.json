@@ -4,7 +4,8 @@
     "signup": "Sign up",
     "email": "Email",
     "password": "Password",
-    "title": "Net Worth Tracker"
+    "title": "Net Worth Tracker",
+    "checkEmail": "Check your email for the confirmation link."
   },
   "Settings": {
     "title": "Settings",
