@@ -27,10 +27,18 @@ export default async function NetWorthPage() {
     // Lấy danh sách Categories đang bật
     const { data: categories } = await supabase
         .from('categories')
-        .select('id, name, type, is_active')
+        .select('id, name, type, is_active, group_id')
         .eq('user_id', user.id)
         .eq('is_active', true)
         .order('type', { ascending: true })
+        .order('name', { ascending: true });
+
+    // Lấy nhóm danh mục
+    const { data: categoryGroups } = await supabase
+        .from('category_groups')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('order_index', { ascending: true })
         .order('name', { ascending: true });
 
     // Lấy số dư các tháng do người dùng nhập trước đđó
@@ -51,6 +59,7 @@ export default async function NetWorthPage() {
             <StaggerItem className="w-full bg-[#FFFFFF] dark:bg-[#050505] rounded-xl border border-[#EAEAEA] dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.02)] overflow-hidden flex-shrink-1">
                 <NetWorthTable
                     initialCategories={categories || []}
+                    initialGroups={categoryGroups || []}
                     initialEntries={entries || []}
                     startMonth={startMonth}
                     startYear={startYear}

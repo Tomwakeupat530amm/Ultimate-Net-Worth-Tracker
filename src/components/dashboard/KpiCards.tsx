@@ -1,48 +1,93 @@
-import { ArrowDownIcon, ArrowUpIcon, MinusIcon } from 'lucide-react'
+import { PremiumCard } from '@/components/ui/PremiumCard'
+import { TimeSpanSelector } from './TimeSpanSelector'
 
-export function KpiCards({ kpi, labels }: { kpi: any, labels: any }) {
-    const isPositiveGrowth = kpi.netWorthGrowth > 0;
-    const isZeroGrowth = kpi.netWorthGrowth === 0;
+interface KpiCardsProps {
+    kpi: any
+    metadata?: {
+        firstTrackedDate: string
+        latestTrackedDate: string
+    }
+    currentFrom?: string
+    currentTo?: string
+}
+
+export function KpiCards({ kpi, metadata, currentFrom, currentTo }: KpiCardsProps) {
+    const isPositiveGrowth = kpi.netWorthGrowth > 0
 
     return (
-        <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-4">
-            {/* Total Assets */}
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-800 p-6 flex flex-col justify-between shadow-sm">
-                <h3 className="tracking-tight text-sm font-medium text-gray-500 dark:text-gray-400 uppercase">{labels.totalAssets}</h3>
-                <div className="mt-2 text-2xl font-bold text-gray-900 dark:text-white">
-                    {kpi.totalAssets?.toLocaleString('en-US') || 0}
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5 w-full">
+            {/* 1. Selected Focus Month */}
+            <PremiumCard className="p-4 flex flex-col justify-between items-center text-center shadow-sm">
+                <span className="text-[11px] font-bold text-[#111111] dark:text-[#F7F6F3] mb-2 uppercase tracking-wide">Selected Focus Month</span>
+                <div className="flex flex-col items-center justify-center gap-2 w-full">
+                    <span className="text-xl xl:text-2xl font-bold text-[#111111] dark:text-[#F7F6F3] bg-white dark:bg-transparent tracking-tight leading-none">
+                        {kpi.latestMonthLabel || 'N/A'}
+                    </span>
+                    <span className="text-[9px] text-[#787774] dark:text-[#A1A1AA] uppercase font-bold tracking-widest bg-[#FBFBFA] dark:bg-[#111111] px-2 py-0.5 rounded">
+                        {currentTo && currentTo !== metadata?.latestTrackedDate ? 'FOCUS PERIOD' : 'LATEST MONTH'}
+                    </span>
                 </div>
-            </div>
+            </PremiumCard>
 
-            {/* Total Liabilities */}
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-800 p-6 flex flex-col justify-between shadow-sm">
-                <h3 className="tracking-tight text-sm font-medium text-gray-500 dark:text-gray-400 uppercase">{labels.totalLiabilities}</h3>
-                <div className="mt-2 text-2xl font-bold text-rose-600 dark:text-rose-400">
-                    {kpi.totalLiabilities?.toLocaleString('en-US') || 0}
+            {/* 2. Net Worth */}
+            <PremiumCard className="p-4 flex flex-col justify-between items-center text-center shadow-sm">
+                <span className="text-[11px] font-bold text-[#111111] dark:text-[#F7F6F3] mb-2 uppercase tracking-wide">Net Worth</span>
+                <div className="flex flex-col items-center justify-center gap-2 w-full">
+                    <span className="text-lg xl:text-xl font-bold font-mono text-[#111111] dark:text-[#F7F6F3] tracking-tighter leading-none">
+                        {kpi.netWorth?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+                    </span>
+                    <span className={`text-[9px] font-bold px-2 py-0.5 rounded tracking-wide ${isPositiveGrowth ? 'text-[#346538] dark:text-[#34D399] bg-[#EAF5EA] dark:bg-[#1A2E1A]' : 'text-[#111111] dark:text-[#F7F6F3] bg-[#EAEAEA] dark:bg-[#333333]'}`}>
+                        {isPositiveGrowth ? '+' : ''}{(kpi.growthAmount || 0).toLocaleString('en-US', { maximumFractionDigits: 0 })} in {kpi.growthYears || 0} y
+                    </span>
                 </div>
-            </div>
+            </PremiumCard>
 
-            {/* Net Worth */}
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-800 p-6 flex flex-col justify-between shadow-sm">
-                <h3 className="tracking-tight text-sm font-medium text-gray-500 dark:text-gray-400 uppercase">{labels.netWorth}</h3>
-                <div className="mt-2 text-2xl font-bold text-blue-600 dark:text-blue-400">
-                    {kpi.netWorth?.toLocaleString('en-US') || 0}
-                </div>
-            </div>
-
-            {/* M/M Growth */}
-            <div className="rounded-xl border bg-white dark:bg-zinc-900 border-gray-200 dark:border-zinc-800 p-6 flex flex-col justify-between shadow-sm">
-                <h3 className="tracking-tight text-sm font-medium text-gray-500 dark:text-gray-400 uppercase">{labels.growth}</h3>
-                <div className="mt-2 flex items-center gap-3">
-                    <div className={`text-2xl font-bold tabular-nums ${isZeroGrowth ? 'text-gray-500' : isPositiveGrowth ? 'text-emerald-600' : 'text-rose-600'}`}>
-                        {isPositiveGrowth ? '+' : ''}{kpi.netWorthGrowth?.toFixed(1) || 0}%
+            {/* 3. Assets & Liabilities */}
+            <PremiumCard className="p-4 flex flex-col justify-center items-center shadow-sm">
+                <div className="flex flex-col gap-3 w-full h-full justify-center">
+                    <div className="flex flex-col items-center justify-center w-full">
+                        <span className="text-[10px] font-bold text-[#787774] dark:text-[#A1A1AA] uppercase tracking-wider mb-1.5">Assets</span>
+                        <span className="text-[13px] xl:text-[15px] font-bold font-mono text-[#1F6C9F] dark:text-[#60A5FA] tracking-tighter leading-none text-center max-w-full break-all">
+                            {kpi.totalAssets?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+                        </span>
                     </div>
-                    <div className={`flex items-center text-xs font-semibold px-2 py-1 rounded-full ${isZeroGrowth ? 'bg-gray-100 text-gray-600 dark:bg-zinc-800' : isPositiveGrowth ? 'bg-emerald-100 text-emerald-700 dark:bg-emerald-900/30 dark:text-emerald-400' : 'bg-rose-100 text-rose-700 dark:bg-rose-900/30 dark:text-rose-400'}`}>
-                        {isPositiveGrowth ? <ArrowUpIcon className="w-3 h-3 mr-1" /> : isZeroGrowth ? <MinusIcon className="w-3 h-3 mr-1" /> : <ArrowDownIcon className="w-3 h-3 mr-1" />}
-                        {labels.vsLastMonth}
+                    <div className="w-4/5 h-px bg-[#EAEAEA] dark:bg-[#333333] mx-auto hidden sm:block"></div>
+                    <div className="flex flex-col items-center justify-center w-full">
+                        <span className="text-[10px] font-bold text-[#787774] dark:text-[#A1A1AA] uppercase tracking-wider mb-1.5">Liabilities</span>
+                        <span className="text-[13px] xl:text-[15px] font-bold font-mono text-[#111111] dark:text-[#F7F6F3] tracking-tighter leading-none text-center max-w-full break-all">
+                            {kpi.totalLiabilities?.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) || '0.00'}
+                        </span>
                     </div>
                 </div>
-            </div>
+            </PremiumCard>
+
+            {/* 4. Leverage & Debt */}
+            <PremiumCard className="p-4 flex flex-col justify-between items-center text-center shadow-sm">
+                <span className="text-[11px] font-bold text-[#111111] dark:text-[#F7F6F3] mb-2 uppercase tracking-wide">Net Leverage Ratio</span>
+                <div className="flex flex-col items-center justify-center gap-2 w-full">
+                    <span className="text-lg xl:text-xl font-bold font-mono text-[#111111] dark:text-[#F7F6F3] tracking-tighter leading-none">
+                        {((kpi.leverageRatio || 0) / 100).toFixed(2)}
+                    </span>
+                    <span className="text-[9px] font-bold text-[#787774] dark:text-[#A1A1AA] bg-[#FBFBFA] dark:bg-[#111111] px-2 py-0.5 rounded flex gap-1 tracking-wide">
+                        <span className="uppercase">Net Debt:</span> <span className="font-mono">{kpi.netDebt?.toLocaleString('en-US', { maximumFractionDigits: 0 }) || 0}</span>
+                    </span>
+                </div>
+            </PremiumCard>
+
+            {/* 5. Time Span */}
+            <PremiumCard className="p-0 flex flex-col shadow-sm overflow-hidden border border-[#EAEAEA] dark:border-[#333333]">
+                <div className="bg-[#FBFBFA] dark:bg-[#111111] py-2 border-b border-[#EAEAEA] dark:border-[#333333] text-center">
+                    <span className="text-[10px] font-bold uppercase tracking-wider text-[#111111] dark:text-[#F7F6F3]">Time Span</span>
+                </div>
+                <div className="flex-1 flex flex-col justify-center">
+                    <TimeSpanSelector
+                        firstTrackedDate={metadata?.firstTrackedDate || ''}
+                        latestTrackedDate={metadata?.latestTrackedDate || ''}
+                        currentFrom={currentFrom || ''}
+                        currentTo={currentTo || ''}
+                    />
+                </div>
+            </PremiumCard>
         </div>
     )
 }

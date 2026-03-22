@@ -5,7 +5,7 @@ import { createServerClient } from '@supabase/ssr';
 
 const handleI18nRouting = createMiddleware(routing);
 
-export async function middleware(request: NextRequest) {
+export default async function proxy(request: NextRequest) {
     const response = handleI18nRouting(request);
 
     const supabase = createServerClient(

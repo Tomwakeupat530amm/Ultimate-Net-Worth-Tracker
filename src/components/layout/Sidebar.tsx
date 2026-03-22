@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 import { Settings, ChevronLeft, ChevronRight, DollarSign, PieChart, ArrowRightLeft } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
@@ -12,13 +13,18 @@ export function Sidebar() {
     const [mounted, setMounted] = useState(false)
     const pathname = usePathname()
 
-    useEffect(() => setMounted(true), [])
+    useEffect(() => { setMounted(true) }, [])
+
+    const tDash = useTranslations('Dashboard')
+    const tNW = useTranslations('NetWorth')
+    const tCont = useTranslations('Contributions')
+    const tSet = useTranslations('Settings')
 
     const navItems = [
-        { name: 'Dashboard', href: '/dashboard', icon: PieChart },
-        { name: 'Net Worth', href: '/net-worth', icon: DollarSign },
-        { name: 'Contributions', href: '/contributions', icon: ArrowRightLeft },
-        { name: 'Settings', href: '/settings', icon: Settings },
+        { name: tDash('title'), href: '/dashboard', icon: PieChart },
+        { name: tNW('title'), href: '/net-worth', icon: DollarSign },
+        { name: tCont('title'), href: '/contributions', icon: ArrowRightLeft },
+        { name: tSet('title'), href: '/settings', icon: Settings },
     ]
 
     const isActive = (href: string) => pathname.includes(href)

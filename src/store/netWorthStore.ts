@@ -7,6 +7,7 @@ export type Category = {
     name: string
     type: 'asset' | 'liability'
     is_active: boolean
+    group_id?: string | null
 }
 
 export type NetWorthEntry = {

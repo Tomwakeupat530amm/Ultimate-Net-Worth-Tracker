@@ -1,0 +1,181 @@
+,,,,,,
+,Contributions Tracking,,,,,
+,,,,,,
+,,,,,,
+,,,,,,
+,,Contributions are money movements affecting asset and liability values. The amount of a contribution can either be positive (money flows into asset or liability position) or negative (money flows out of asset or liability position). Use the following logic when entering data:,,,,
+,,,,,,
+,,,,,,
+,,Positive Amount (in-flow),Asset,"Deposit into account, purchase of asset",,
+,,,Liability,Repayment of debt (incl. both principal and interest payments),,
+,,Negative Amount (out-flow),Asset,"Withdrawal from account, sale of asset, payouts (dividends/interest) transferred out to a settlement account",,
+,,,Liability,Accrual of new or additional debt,,
+,,,,,,
+,,,,,,
+,,Date,Amount,Details,Type,Position
+,,2024-01-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-01-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-01-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-01-01 00:00:00,900,Credit Card A Payment,Liability,Credit Card A
+,,2024-01-01 00:00:00,300,Credit Card B Payment,Liability,Credit Card B
+,,2024-02-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-02-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-02-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-02-01 00:00:00,900,Credit Card A Payment,Liability,Credit Card A
+,,2024-02-01 00:00:00,300,Credit Card B Payment,Liability,Credit Card B
+,,2024-03-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-03-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-03-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-03-01 00:00:00,900,Credit Card A Payment,Liability,Credit Card A
+,,2024-03-01 00:00:00,300,Credit Card B Payment,Liability,Credit Card B
+,,2024-04-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-04-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-04-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-04-01 00:00:00,414.05,Credit Card A Payment,Liability,Credit Card A
+,,2024-04-01 00:00:00,138.02,Credit Card B Payment,Liability,Credit Card B
+,,2024-04-01 00:00:00,647.9300000000001,Savings Contribution,Asset,Savings Account
+,,2024-05-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-05-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-05-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-05-01 00:00:00,500,Savings Contribution,Asset,Savings Account
+,,2024-05-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-05-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-06-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-06-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-06-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-06-01 00:00:00,500,Savings Contribution,Asset,Savings Account
+,,2024-06-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-06-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-07-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-07-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-07-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-07-01 00:00:00,500,Savings Contribution,Asset,Savings Account
+,,2024-07-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-07-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-08-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-08-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-08-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-08-01 00:00:00,500,Savings Contribution,Asset,Savings Account
+,,2024-08-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-08-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-09-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-09-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-09-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-09-01 00:00:00,500,Savings Contribution,Asset,Savings Account
+,,2024-09-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-09-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-10-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-10-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-10-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-10-01 00:00:00,500,Savings Contribution,Asset,Savings Account
+,,2024-10-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-10-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-11-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-11-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-11-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-11-01 00:00:00,500,Savings Contribution,Asset,Savings Account
+,,2024-11-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-11-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-11-01 00:00:00,15000,Car Purchase,Asset,Car
+,,2024-11-01 00:00:00,-3000,Down Payment Car,Asset,Savings Account
+,,2024-11-01 00:00:00,-12000,Accrual Car Loan @5% interest,Liability,Car Loan
+,,2024-12-01 00:00:00,450,401k Contribution,Asset,401k
+,,2024-12-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2024-12-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2024-12-01 00:00:00,300,Savings Contribution,Asset,Savings Account
+,,2024-12-01 00:00:00,400,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2024-12-01 00:00:00,300,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2024-12-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-01-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-01-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-01-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-01-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-01-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-01-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-01-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-02-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-02-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-02-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-02-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-02-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-02-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-02-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-03-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-03-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-03-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-03-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-03-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-03-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-03-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-03-01 00:00:00,-12000,Sale of Watch Collection,Asset,Watch Collection
+,,2025-03-01 00:00:00,12000,Savings Contribution from Watch Sale,Asset,Savings Account
+,,2025-04-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-04-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-04-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-04-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-04-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-04-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-04-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-05-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-05-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-05-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-05-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-05-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-05-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-05-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-06-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-06-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-06-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-06-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-06-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-06-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-06-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-07-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-07-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-07-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-07-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-07-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-07-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-07-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-08-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-08-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-08-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-08-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-08-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-08-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-08-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-09-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-09-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-09-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-09-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-09-01 00:00:00,1000,Savings Contribution,Asset,Savings Account
+,,2025-09-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-09-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-09-01 00:00:00,103000,IP Purchase Price + Transactional Costs,Asset,Investment Property
+,,2025-09-01 00:00:00,-3000,IP Transactional Costs,Asset,Savings Account
+,,2025-09-01 00:00:00,-20000,IP Down Payment,Asset,Savings Account
+,,2025-09-01 00:00:00,-80000,Accrual IP Mortgage @4% interest,Liability,Mortgage Invest. Prop.
+,,2025-10-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-10-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-10-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-10-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-10-01 00:00:00,600,Savings Contribution,Asset,Savings Account
+,,2025-10-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-10-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-10-01 00:00:00,400,Monthly Mortgage Payment,Liability,Mortgage Invest. Prop.
+,,2025-11-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-11-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-11-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-11-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-11-01 00:00:00,600,Savings Contribution,Asset,Savings Account
+,,2025-11-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-11-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-11-01 00:00:00,400,Monthly Mortgage Payment,Liability,Mortgage Invest. Prop.
+,,2025-12-01 00:00:00,650,401k Contribution,Asset,401k
+,,2025-12-01 00:00:00,500,Roth IRA Contribution,Asset,Roth IRA
+,,2025-12-01 00:00:00,300,Monthly Rate Undergraduate Loan,Liability,Undergraduate Loan
+,,2025-12-01 00:00:00,200,Monthly Rate Car Loan,Liability,Car Loan
+,,2025-12-01 00:00:00,600,Savings Contribution,Asset,Savings Account
+,,2025-12-01 00:00:00,500,ETF Portfolio Contribution,Asset,ETF Portfolio
+,,2025-12-01 00:00:00,1500,Stock Portfolio Contribution,Asset,Stock Portfolio
+,,2025-12-01 00:00:00,400,Monthly Mortgage Payment,Liability,Mortgage Invest. Prop.

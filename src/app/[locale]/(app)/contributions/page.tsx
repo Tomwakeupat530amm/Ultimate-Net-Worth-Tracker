@@ -33,11 +33,13 @@ export default async function ContributionsPage() {
         .order('type', { ascending: true })
         .order('name', { ascending: true })
 
-    // Lấy Contributions entries
+    // Lấy Contributions entries (Ledger)
     const { data: entries } = await supabase
-        .from('contributions')
-        .select('category_id, month, year, inflow, outflow')
+        .from('contribution_transactions')
+        .select('*, categories(name)')
         .eq('user_id', user.id)
+        .order('date', { ascending: false })
+        .order('created_at', { ascending: false })
 
     return (
         <StaggerContainer className="mx-auto max-w-[100vw] space-y-12 flex flex-col items-start w-full pb-16">
@@ -48,12 +50,10 @@ export default async function ContributionsPage() {
                 </div>
             </StaggerItem>
 
-            <StaggerItem className="w-full bg-[#FFFFFF] dark:bg-[#050505] rounded-xl border border-[#EAEAEA] dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.02)] overflow-hidden flex-shrink-1">
+            <StaggerItem className="w-full">
                 <ContributionsTable
                     initialCategories={categories || []}
                     initialEntries={entries || []}
-                    startMonth={startMonth}
-                    startYear={startYear}
                 />
             </StaggerItem>
         </StaggerContainer>
