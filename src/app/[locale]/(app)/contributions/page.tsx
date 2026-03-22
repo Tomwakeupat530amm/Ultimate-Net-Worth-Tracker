@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 import { createClient } from '@/utils/supabase/server';
 import { ContributionsTable } from './ContributionsTable';
+import { StaggerContainer, StaggerItem } from '@/components/ui/StaggerReveal';
 
 export const metadata = {
     title: 'Contributions - Net Worth Tracker',
@@ -39,22 +40,22 @@ export default async function ContributionsPage() {
         .eq('user_id', user.id)
 
     return (
-        <div className="mx-auto max-w-[100vw] space-y-6 flex flex-col items-start w-full">
-            <div className="flex justify-between items-end">
-                <div>
-                    <h1 className="text-2xl font-bold text-gray-900 dark:text-gray-100">{t('title')}</h1>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">{t('desc')}</p>
+        <StaggerContainer className="mx-auto max-w-[100vw] space-y-12 flex flex-col items-start w-full pb-16">
+            <StaggerItem className="flex justify-between items-end w-full">
+                <div className="flex flex-col gap-2">
+                    <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-[#111111] dark:text-gray-100">{t('title')}</h1>
+                    <p className="text-base text-[#787774] dark:text-gray-400 max-w-[65ch]">{t('desc')}</p>
                 </div>
-            </div>
+            </StaggerItem>
 
-            <div className="w-full bg-white dark:bg-zinc-900 rounded-xl border border-gray-200 dark:border-zinc-800 shadow-sm overflow-hidden flex-shrink-1">
+            <StaggerItem className="w-full bg-[#FFFFFF] dark:bg-[#050505] rounded-xl border border-[#EAEAEA] dark:border-white/10 shadow-[0_2px_8px_rgba(0,0,0,0.02)] overflow-hidden flex-shrink-1">
                 <ContributionsTable
                     initialCategories={categories || []}
                     initialEntries={entries || []}
                     startMonth={startMonth}
                     startYear={startYear}
                 />
-            </div>
-        </div>
+            </StaggerItem>
+        </StaggerContainer>
     )
 }
