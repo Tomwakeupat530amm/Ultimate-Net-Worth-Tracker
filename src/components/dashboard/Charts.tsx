@@ -7,8 +7,7 @@ import { useEffect, useState } from 'react'
 const PIE_COLORS_LIGHT = ['#1F6C9F', '#346538', '#956400', '#9F2F2D', '#787774', '#6366f1', '#14b8a6', '#f59e0b', '#ec4899']
 const PIE_COLORS_DARK = ['#60A5FA', '#34D399', '#FBBF24', '#FB7185', '#A1A1AA', '#818cf8', '#2dd4bf', '#fbbf24', '#f472b6']
 
-const getSymmetricDomain = (dataDomain: readonly [number, number] | [number, number]) => {
-    // Recharts passes the calculated [dataMin, dataMax] as an array
+const getSymmetricDomain = (dataDomain: any): [number, number] => {
     if (!dataDomain || dataDomain.length < 2) return [-100, 100];
 
     const min = Number(dataDomain[0]);

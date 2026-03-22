@@ -48,14 +48,14 @@ export function TimeSpanSelector({ firstTrackedDate, latestTrackedDate, currentF
     ]
 
     // Handle relative values for 'from'
-    const displayFrom = currentFrom || firstTrackedDate
-    const displayTo = currentTo || latestTrackedDate
+    const displayFrom = currentFrom || firstTrackedDate || ''
+    const displayTo = currentTo || latestTrackedDate || ''
 
     return (
         <div className="grid grid-cols-2 text-center text-xs h-full bg-white dark:bg-[#050505]">
             <div className="flex flex-col border-r border-[#EAEAEA] dark:border-[#333333] px-0.5 justify-center overflow-hidden">
                 <span className="font-semibold text-[#787774] dark:text-[#A1A1AA] mb-[1px] text-[8px] uppercase tracking-tighter shrink-0">From</span>
-                <Select value={displayFrom} onValueChange={(v) => updateParams('from', v)}>
+                <Select value={displayFrom} onValueChange={(v) => updateParams('from', v || '')}>
                     <SelectTrigger className="h-6 text-[9px] border-none bg-transparent hover:bg-[#F4F9F4] dark:hover:bg-[#0D211A] text-[#346538] dark:text-[#34D399] font-mono px-1 py-0 shadow-none focus:ring-0">
                         <SelectValue placeholder="From" />
                     </SelectTrigger>
@@ -70,7 +70,7 @@ export function TimeSpanSelector({ firstTrackedDate, latestTrackedDate, currentF
             </div>
             <div className="flex flex-col px-0.5 justify-center overflow-hidden">
                 <span className="font-semibold text-[#787774] dark:text-[#A1A1AA] mb-[1px] text-[8px] uppercase tracking-tighter shrink-0">To (Focus)</span>
-                <Select value={displayTo} onValueChange={(v) => updateParams('to', v)}>
+                <Select value={displayTo} onValueChange={(v) => updateParams('to', v || '')}>
                     <SelectTrigger className="h-6 text-[9px] border-none bg-transparent hover:bg-[#F4F9F4] dark:hover:bg-[#0D211A] text-[#346538] dark:text-[#34D399] font-mono px-1 py-0 shadow-none focus:ring-0">
                         <SelectValue placeholder="To" />
                     </SelectTrigger>
