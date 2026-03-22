@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server';
-import { login, signup } from './actions';
-import { Button } from '@/components/ui/button';
+import LoginForm from './LoginForm';
 
 export default async function LoginPage() {
     const t = await getTranslations('Auth');
@@ -11,36 +10,13 @@ export default async function LoginPage() {
                 <h1 className="mb-6 text-2xl font-bold text-center text-gray-900 dark:text-gray-100">
                     {t('title')}
                 </h1>
-                <form className="space-y-4">
-                    <div className="space-y-2">
-                        <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('email')}</label>
-                        <input
-                            id="email"
-                            name="email"
-                            type="email"
-                            required
-                            className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent dark:border-zinc-700 dark:focus:ring-zinc-300"
-                        />
-                    </div>
-                    <div className="space-y-2">
-                        <label htmlFor="password" className="text-sm font-medium text-gray-700 dark:text-gray-300">{t('password')}</label>
-                        <input
-                            id="password"
-                            name="password"
-                            type="password"
-                            required
-                            className="flex h-10 w-full rounded-md border border-gray-300 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-900 focus:border-transparent dark:border-zinc-700 dark:focus:ring-zinc-300"
-                        />
-                    </div>
-                    <div className="flex flex-col gap-2 pt-2">
-                        <Button formAction={login} variant="default" className="w-full">
-                            {t('login')}
-                        </Button>
-                        <Button formAction={signup} variant="outline" className="w-full cursor-pointer">
-                            {t('signup')}
-                        </Button>
-                    </div>
-                </form>
+
+                <LoginForm t={{
+                    email: t('email'),
+                    password: t('password'),
+                    login: t('login'),
+                    signup: t('signup')
+                }} />
             </div>
         </div>
     )

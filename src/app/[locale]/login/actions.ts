@@ -1,43 +1,44 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { redirect } from 'next/navigation'
 import { createClient } from '@/utils/supabase/server'
 
 export async function login(formData: FormData) {
     const supabase = await createClient()
 
-    const data = {
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-    }
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
 
-    const { error } = await supabase.auth.signInWithPassword(data)
+    const { error } = await supabase.auth.signInWithPassword({ email, password })
 
     if (error) {
-        redirect('/error?message=' + encodeURIComponent(error.message))
+        return { error: error.message }
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard')
+    return { success: true }
 }
 
 export async function signup(formData: FormData) {
     const supabase = await createClient()
 
-    const data = {
-        email: formData.get('email') as string,
-        password: formData.get('password') as string,
-    }
+    const email = formData.get('email') as string
+    const password = formData.get('password') as string
 
-    const { error } = await supabase.auth.signUp({
-        ...data,
+    const { data, error } = await supabase.auth.signUp({
+        email,
+        password,
     })
 
     if (error) {
-        redirect('/error?message=' + encodeURIComponent(error.message))
+        return { error: error.message }
+    }
+
+    // If confirmation is required, session will be null
+    if (!data.session) {
+        return { success: true, message: 'Check your email for the confirmation link.' }
     }
 
     revalidatePath('/', 'layout')
-    redirect('/dashboard')
+    return { success: true }
 }
