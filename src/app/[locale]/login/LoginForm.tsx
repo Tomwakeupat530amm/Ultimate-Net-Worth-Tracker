@@ -20,8 +20,14 @@ export default function LoginForm({ t }: LoginFormProps) {
     const [isLoading, setIsLoading] = useState(false)
     const router = useRouter()
 
-    async function handleSubmit(formData: FormData, action: (fd: FormData) => Promise<any>) {
+    async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+        e.preventDefault()
         setIsLoading(true)
+
+        const formData = new FormData(e.currentTarget)
+        const actionType = (e.nativeEvent as any).submitter?.name
+
+        const action = actionType === 'signup' ? signup : login
         const result = await action(formData)
 
         if (result?.error) {
@@ -35,11 +41,13 @@ export default function LoginForm({ t }: LoginFormProps) {
                 router.push('/dashboard')
                 router.refresh()
             }
+        } else {
+            setIsLoading(false)
         }
     }
 
     return (
-        <form className="space-y-4">
+        <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
                 <label htmlFor="email" className="text-sm font-medium text-gray-700 dark:text-gray-300">{t.email}</label>
                 <input
@@ -62,7 +70,8 @@ export default function LoginForm({ t }: LoginFormProps) {
             </div>
             <div className="flex flex-col gap-2 pt-2">
                 <Button
-                    formAction={(fd) => handleSubmit(fd, login)}
+                    type="submit"
+                    name="login"
                     disabled={isLoading}
                     variant="default"
                     className="w-full"
@@ -70,7 +79,8 @@ export default function LoginForm({ t }: LoginFormProps) {
                     {t.login}
                 </Button>
                 <Button
-                    formAction={(fd) => handleSubmit(fd, signup)}
+                    type="submit"
+                    name="signup"
                     disabled={isLoading}
                     variant="outline"
                     className="w-full cursor-pointer"

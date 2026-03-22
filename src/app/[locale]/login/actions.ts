@@ -16,7 +16,7 @@ export async function login(formData: FormData) {
     }
 
     revalidatePath('/', 'layout')
-    return { success: true }
+    return { success: true, confirmationRequired: false }
 }
 
 export async function signup(formData: FormData) {
