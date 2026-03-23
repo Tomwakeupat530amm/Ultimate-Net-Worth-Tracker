@@ -11,15 +11,12 @@ export function CurrencyInput({ value, onValueChange, className, ...props }: Cur
     const [displayValue, setDisplayValue] = useState('')
     const inputRef = useRef<HTMLInputElement>(null)
 
-    useEffect(() => {
-        // Only format and update if it structurally differs to prevent cursor jumping
-        const currentNumeric = parseFloat(displayValue.replace(/[^0-9.]/g, '')) || 0
-        if (value !== currentNumeric && value !== 0) {
-            setDisplayValue(value.toLocaleString('en-US'))
-        } else if (value === 0 && !displayValue) {
-            setDisplayValue('')
-        }
-    }, [value, displayValue])
+    // Sync display value when prop value changes from outside
+    const [prevValue, setPrevValue] = useState(value)
+    if (value !== prevValue) {
+        setPrevValue(value)
+        setDisplayValue(value === 0 ? '' : value.toLocaleString('en-US'))
+    }
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const rawValue = e.target.value
