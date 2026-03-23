@@ -19,12 +19,14 @@ export function ContributionsTable({
     const [isPending, startTransition] = useTransition()
     const [loadingId, setLoadingId] = useState<string | null>(null)
 
-    const assets = initialCategories.filter(c => c.type === 'asset')
-    const liabilities = initialCategories.filter(c => c.type === 'liability')
+    const [selectedType, setSelectedType] = useState<'asset' | 'liability'>('asset')
+
+    const filteredCategories = initialCategories.filter(c => c.type === selectedType)
 
     const handleAdd = (formData: FormData) => {
         startTransition(async () => {
             try {
+                // Ensure the type is preserved if needed, though server action derives it
                 await addContributionTransaction(formData)
                 toast.success(t('transactionSaved'))
             } catch (e: any) {
@@ -66,19 +68,42 @@ export function ContributionsTable({
                             />
                         </div>
 
+                        {/* Type Selector */}
+                        <div className="space-y-2">
+                            <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500 ml-1">{t('type')}</label>
+                            <div className="grid grid-cols-2 gap-2 bg-zinc-50/50 dark:bg-zinc-900/50 p-1 rounded-xl border border-zinc-200 dark:border-zinc-800">
+                                <button
+                                    type="button"
+                                    onClick={() => setSelectedType('asset')}
+                                    className={`py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all ${selectedType === 'asset'
+                                        ? 'bg-white dark:bg-zinc-800 text-emerald-600 dark:text-emerald-400 shadow-sm'
+                                        : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200'
+                                        }`}
+                                >
+                                    {t('asset')}
+                                </button>
+                                <button
+                                    type="button"
+                                    onClick={() => setSelectedType('liability')}
+                                    className={`py-2 text-[10px] font-black uppercase tracking-wider rounded-lg transition-all ${selectedType === 'liability'
+                                        ? 'bg-white dark:bg-zinc-800 text-rose-600 dark:text-rose-400 shadow-sm'
+                                        : 'text-zinc-400 hover:text-zinc-600 dark:hover:text-zinc-200'
+                                        }`}
+                                >
+                                    {t('liability')}
+                                </button>
+                            </div>
+                        </div>
+
                         <div className="space-y-2">
                             <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500 ml-1">{t('categoryPosition')}</label>
                             <select
                                 name="category_id"
                                 required
+                                key={selectedType} // Reset select when type changes
                                 className="flex h-11 w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:focus:ring-zinc-100 transition-all text-zinc-900 dark:text-zinc-100 appearance-none cursor-pointer"
                             >
-                                <optgroup label={t('assets')}>
-                                    {assets.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
-                                </optgroup>
-                                <optgroup label={t('liabilities')}>
-                                    {liabilities.map(l => <option key={l.id} value={l.id}>{l.name}</option>)}
-                                </optgroup>
+                                {filteredCategories.map(c => <option key={c.id} value={c.id}>{c.name}</option>)}
                             </select>
                         </div>
 

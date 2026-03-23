@@ -129,7 +129,10 @@
         "position": "Tài khoản",
         "details": "Chi tiết",
         "assets": "Tài sản",
-        "liabilities": "Khoản nợ"
+        "liabilities": "Khoản nợ",
+        "type": "Loại",
+        "asset": "Tài sản",
+        "liability": "Khoản nợ"
     },
     "Dashboard": {
         "title": "Bảng Điều Khiển",

@@ -129,7 +129,10 @@
     "position": "Position",
     "details": "Details",
     "assets": "Assets",
-    "liabilities": "Liabilities"
+    "liabilities": "Liabilities",
+    "type": "Type",
+    "asset": "Asset",
+    "liability": "Liability"
   },
   "Dashboard": {
     "title": "Dashboard",
