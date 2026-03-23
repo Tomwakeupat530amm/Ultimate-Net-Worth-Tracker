@@ -2,10 +2,18 @@
     "Auth": {
         "login": "Đăng nhập",
         "signup": "Đăng ký",
-        "email": "Email",
+        "email": "Địa chỉ Email",
         "password": "Mật khẩu",
-        "title": "Trình Theo Dõi Tài Sản",
-        "checkEmail": "Vui lòng kiểm tra email của bạn để xác nhận tài khoản."
+        "confirmPassword": "Xác nhận mật khẩu",
+        "title": "Net Worth Tracker Pro",
+        "checkEmail": "Vui lòng kiểm tra email để xác nhận tài khoản.",
+        "welcomeBack": "Chào mừng trở lại",
+        "createAccount": "Tạo tài khoản mới",
+        "dontHaveAccount": "Chưa có tài khoản?",
+        "alreadyHaveAccount": "Đã có tài khoản?",
+        "passwordsDoNotMatch": "Mật khẩu không trùng khớp",
+        "loginDescription": "Nhập thông tin truy cập để vào Dashboard của bạn",
+        "signupDescription": "Bắt đầu hành trình tự do tài chính ngay hôm nay"
     },
     "Settings": {
         "title": "Cài Đặt",

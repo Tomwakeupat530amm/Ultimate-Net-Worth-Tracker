@@ -2,10 +2,18 @@
   "Auth": {
     "login": "Log in",
     "signup": "Sign up",
-    "email": "Email",
+    "email": "Email Address",
     "password": "Password",
+    "confirmPassword": "Confirm Password",
     "title": "Net Worth Tracker",
-    "checkEmail": "Check your email for the confirmation link."
+    "checkEmail": "Check your email for the confirmation link.",
+    "welcomeBack": "Welcome Back",
+    "createAccount": "Create an Account",
+    "dontHaveAccount": "Don't have an account?",
+    "alreadyHaveAccount": "Already have an account?",
+    "passwordsDoNotMatch": "Passwords do not match",
+    "loginDescription": "Enter your credentials to access your dashboard",
+    "signupDescription": "Start your financial journey with us today"
   },
   "Settings": {
     "title": "Settings",
