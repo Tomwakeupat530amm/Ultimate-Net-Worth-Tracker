@@ -25,25 +25,8 @@ interface PageProps {
 export default async function DashboardPage({ params, searchParams }: PageProps) {
     const { from: fromParam, to: toParam } = await searchParams
 
-    // Temporary fetch to get metadata (base dates)
-    const initialData = await getDashboardData(undefined, toParam)
-    const firstTracked = initialData.metadata.firstTrackedDate
-    const latestTracked = initialData.metadata.latestTrackedDate
-
-    const activeTo = toParam || latestTracked
-    let activeFrom = fromParam || firstTracked
-
-    // Handle relative From
-    if (activeFrom === 'focus-1y') {
-        activeFrom = format(subYears(parseISO(activeTo), 1), 'yyyy-MM-01')
-    } else if (activeFrom === 'focus-2y') {
-        activeFrom = format(subYears(parseISO(activeTo), 2), 'yyyy-MM-01')
-    } else if (activeFrom === 'focus-3y') {
-        activeFrom = format(subYears(parseISO(activeTo), 3), 'yyyy-MM-01')
-    }
-
-    // Load final data with computed range
-    const data = await getDashboardData(activeFrom, activeTo)
+    // Load data once. Action handles date defaulting and relative ranges
+    const data = await getDashboardData(fromParam, toParam)
     const t = await getTranslations('Dashboard')
 
     return (

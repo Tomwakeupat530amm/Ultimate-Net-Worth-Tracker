@@ -1,43 +1,29 @@
-'use server'
-
 import { createClient } from '@/utils/supabase/server'
+import { format, subYears, parseISO, startOfMonth } from 'date-fns'
 
-export async function getDashboardData(providedStartDate?: string, providedEndDate?: string) {
+export async function getDashboardData(providedFrom?: string, providedTo?: string) {
     const supabase = await createClient()
     const { data: { user } } = await supabase.auth.getUser()
 
     if (!user) throw new Error('Unauthorized')
 
-    // 1. Fetch settings and data range
-    const { data: settings } = await supabase
-        .from('user_settings')
-        .select('*')
-        .eq('user_id', user.id)
-        .single()
+    // 1. Parallel Fetch of Initial Metadata
+    const [
+        { data: settings },
+        { data: firstEntry },
+        { data: latestEntry },
+        { data: goals }
+    ] = await Promise.all([
+        supabase.from('user_settings').select('*').eq('user_id', user.id).maybeSingle(),
+        supabase.from('net_worth_entries').select('month, year').eq('user_id', user.id).order('year', { ascending: true }).order('month', { ascending: true }).limit(1).maybeSingle(),
+        supabase.from('net_worth_entries').select('month, year').eq('user_id', user.id).order('year', { ascending: false }).order('month', { ascending: false }).limit(1).maybeSingle(),
+        supabase.from('goals').select('*').eq('user_id', user.id).order('target_amount', { ascending: true })
+    ])
 
     const startMonth = settings?.starting_month || 1
     const startYear = settings?.starting_year || new Date().getFullYear()
     const leverageMode = settings?.leverage_ratio_mode || 'simple'
     const lazyMode = settings?.latest_month_mode === 'lazy'
-
-    // Find the ACTUAL first and latest tracked months in net_worth_entries
-    const { data: firstEntry } = await supabase
-        .from('net_worth_entries')
-        .select('month, year')
-        .eq('user_id', user.id)
-        .order('year', { ascending: true })
-        .order('month', { ascending: true })
-        .limit(1)
-        .single()
-
-    const { data: latestEntry } = await supabase
-        .from('net_worth_entries')
-        .select('month, year')
-        .eq('user_id', user.id)
-        .order('year', { ascending: false })
-        .order('month', { ascending: false })
-        .limit(1)
-        .single()
 
     const startYearData = firstEntry?.year || startYear
     const startMonthData = firstEntry?.month || startMonth
@@ -47,23 +33,43 @@ export async function getDashboardData(providedStartDate?: string, providedEndDa
     const latestMonthData = latestEntry?.month || startMonthData
     const latestTrackedDate = `${latestYearData}-${String(latestMonthData).padStart(2, '0')}-01`
 
-    const startDate = providedStartDate || firstTrackedDate
-    const endDate = providedEndDate || latestTrackedDate
+    // 2. Compute Active Range (Logic moved from Page for better performance)
+    const activeTo = providedTo || latestTrackedDate
+    let activeFrom = providedFrom || firstTrackedDate
 
-    // 2. Fetch Timeline via RPC
-    const { data: timelineData, error: timelineError } = await supabase.rpc('get_dashboard_timeline', {
-        p_start_date: startDate,
-        p_end_date: endDate,
-        p_lazy_mode: Boolean(lazyMode)
-    })
-
-    if (timelineError) {
-        console.error('RPC Error:', timelineError)
-        throw new Error(`Failed to fetch timeline: ${timelineError.message || JSON.stringify(timelineError)}`)
+    if (activeFrom === 'focus-1y') {
+        activeFrom = format(subYears(parseISO(activeTo), 1), 'yyyy-MM-01')
+    } else if (activeFrom === 'focus-2y') {
+        activeFrom = format(subYears(parseISO(activeTo), 2), 'yyyy-MM-01')
+    } else if (activeFrom === 'focus-3y') {
+        activeFrom = format(subYears(parseISO(activeTo), 3), 'yyyy-MM-01')
     }
 
-    // 3. Formulate monthlyData
-    const monthlyData = (timelineData || []).map((row: any) => {
+    // Ensure activeFrom is not earlier than firstTrackedDate if it was a default
+    // (Optional, matches Excel behavior better)
+
+    // 3. Parallel Fetch of Heavy RPCs
+    const [timelineRes, detailedRes] = await Promise.all([
+        supabase.rpc('get_dashboard_timeline', {
+            p_start_date: activeFrom,
+            p_end_date: activeTo,
+            p_lazy_mode: Boolean(lazyMode)
+        }),
+        supabase.rpc('get_detailed_analysis', {
+            p_start_date: activeFrom,
+            p_end_date: activeTo,
+            p_lazy_mode: Boolean(lazyMode)
+        })
+    ])
+
+    if (timelineRes.error) throw new Error(`Timeline RPC Error: ${timelineRes.error.message}`)
+    if (detailedRes.error) throw new Error(`Detailed Analysis RPC Error: ${detailedRes.error.message}`)
+
+    const timelineData = timelineRes.data || []
+    const detailedData = detailedRes.data || []
+
+    // 4. Transform Data
+    const monthlyData = timelineData.map((row: any) => {
         const date = new Date(row.month_date)
         const m = date.getMonth() + 1
         const y = date.getFullYear()
@@ -82,20 +88,8 @@ export async function getDashboardData(providedStartDate?: string, providedEndDa
         }
     })
 
-    // 4. Fetch Detailed Analysis via RPC
-    const { data: detailedData, error: detailedError } = await supabase.rpc('get_detailed_analysis', {
-        p_start_date: startDate,
-        p_end_date: endDate,
-        p_lazy_mode: Boolean(lazyMode)
-    })
-
-    if (detailedError) {
-        console.error('Detailed RPC Error:', detailedError)
-        throw new Error(`Failed to fetch detailed analysis: ${detailedError.message || JSON.stringify(detailedError)}`)
-    }
-
-    const assetsRaw = detailedData?.filter((d: any) => d.category_type === 'asset') || []
-    const liabRaw = detailedData?.filter((d: any) => d.category_type === 'liability') || []
+    const assetsRaw = detailedData.filter((d: any) => d.category_type === 'asset')
+    const liabRaw = detailedData.filter((d: any) => d.category_type === 'liability')
 
     const formatDetails = (rawList: any[]) => {
         let totalVal = 0
@@ -145,7 +139,7 @@ export async function getDashboardData(providedStartDate?: string, providedEndDa
         name: l.name, value: l.currentValue, percentage: l.percentage
     }))
 
-    // 5. KPIs
+    // 5. KPIs Calculation
     let latestIndex = 0
     for (let i = monthlyData.length - 1; i >= 0; i--) {
         if (monthlyData[i].assets > 0 || monthlyData[i].liabilities > 0) {
@@ -161,7 +155,7 @@ export async function getDashboardData(providedStartDate?: string, providedEndDa
         ? ((currentKpi.netWorth - firstKpi.netWorth) / Math.abs(firstKpi.netWorth)) * 100
         : 0
 
-    const startD = new Date(startDate)
+    const startD = new Date(activeFrom)
     let currentD = new Date()
     if (currentKpi && currentKpi.year) {
         currentD = new Date(currentKpi.year, currentKpi.month - 1, 1)
@@ -199,22 +193,6 @@ export async function getDashboardData(providedStartDate?: string, providedEndDa
         firstMonthLabel: firstKpi.label
     }
 
-    // 6. Fetch Goals
-    const { data: goals } = await supabase.from('goals').select('*').eq('user_id', user.id).order('target_amount', { ascending: true })
-    const userGoals = goals || []
-    const processedGoals = userGoals.map(g => {
-        const completionRaw = (kpi.netWorth / g.target_amount) * 100
-        const completion = Math.min(100, Math.max(0, completionRaw))
-        return {
-            id: g.id,
-            name: g.name,
-            target_amount: g.target_amount,
-            target_date: g.target_date,
-            completion: completion,
-            isCompleted: completion >= 100
-        }
-    })
-
     return {
         settings,
         monthlyData,
@@ -225,7 +203,18 @@ export async function getDashboardData(providedStartDate?: string, providedEndDa
             assets: detailedAssets,
             liabilities: detailedLiabilities
         },
-        goals: processedGoals,
+        goals: goals?.map(g => {
+            const completionRaw = (kpi.netWorth / g.target_amount) * 100
+            const completion = Math.min(100, Math.max(0, completionRaw))
+            return {
+                id: g.id,
+                name: g.name,
+                target_amount: g.target_amount,
+                target_date: g.target_date,
+                completion: completion,
+                isCompleted: completion >= 100
+            }
+        }) || [],
         metadata: {
             firstTrackedDate: firstTrackedDate,
             latestTrackedDate: latestTrackedDate
