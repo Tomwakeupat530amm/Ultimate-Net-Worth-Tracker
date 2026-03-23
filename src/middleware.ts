@@ -29,7 +29,11 @@ export default async function middleware(request: NextRequest) {
     );
 
     // 3. Refresh session if it exists/expired
-    await supabase.auth.getUser();
+    try {
+        await supabase.auth.getUser();
+    } catch (e) {
+        // Ignore auth errors in proxy layer - they will be handled by the UI/Actions
+    }
 
     return response;
 }

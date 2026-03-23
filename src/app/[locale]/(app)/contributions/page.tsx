@@ -3,8 +3,13 @@ import { createClient } from '@/utils/supabase/server';
 import { ContributionsTable } from './ContributionsTable';
 import { StaggerContainer, StaggerItem } from '@/components/ui/StaggerReveal';
 
-export const metadata = {
-    title: 'Contributions - Net Worth Tracker',
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
+    const params = await props.params;
+    const locale = params.locale;
+    const t = await getTranslations({ locale, namespace: 'Contributions' });
+    return {
+        title: `${t('title')} - Net Worth Tracker`,
+    };
 }
 
 export default async function ContributionsPage() {

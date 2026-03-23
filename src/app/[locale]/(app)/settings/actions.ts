@@ -127,6 +127,11 @@ export async function updateCustomKpis(formData: FormData) {
     const returnRate = parseFloat(formData.get('custom_kpi_return') as string)
     const withdrawal = parseFloat(formData.get('custom_kpi_withdrawal') as string)
 
+    // Validation
+    if (isNaN(expenses) || expenses < 0) throw new Error('Expenses must be a positive number');
+    if (isNaN(returnRate) || returnRate < 0 || returnRate > 1) throw new Error('Return rate must be between 0 and 1');
+    if (isNaN(withdrawal) || withdrawal < 0 || withdrawal > 1) throw new Error('Withdrawal rate must be between 0 and 1');
+
     const { error } = await supabase
         .from('user_settings')
         .update({
@@ -152,6 +157,7 @@ export async function updateGoal(formData: FormData) {
     if (!user) throw new Error('Unauthorized');
 
     const goalId = formData.get('goal_id') as string
+    const name = formData.get('name') as string
     const targetAmount = parseFloat(formData.get('target_amount') as string)
     const targetDateStr = formData.get('target_date') as string
 
@@ -161,6 +167,7 @@ export async function updateGoal(formData: FormData) {
     const { error } = await supabase
         .from('goals')
         .update({
+            name: name,
             target_amount: targetAmount,
             target_date: targetDate
         })
@@ -175,3 +182,131 @@ export async function updateGoal(formData: FormData) {
     revalidatePath('/settings', 'page')
     revalidatePath('/dashboard', 'page')
 }
+
+export async function createGoal(formData: FormData) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) throw new Error('Unauthorized');
+
+    const name = formData.get('name') as string
+    const targetAmount = parseFloat(formData.get('target_amount') as string)
+    const targetDateStr = formData.get('target_date') as string
+
+    if (!name) throw new Error('Goal name is required');
+
+    const targetDate = targetDateStr ? targetDateStr : null
+
+    const { error } = await supabase
+        .from('goals')
+        .insert({
+            user_id: user.id,
+            name: name,
+            target_amount: targetAmount,
+            target_date: targetDate
+        })
+
+    if (error) {
+        console.error('Failed to create goal:', error)
+        throw new Error(error.message);
+    }
+
+    revalidatePath('/settings', 'page')
+    revalidatePath('/dashboard', 'page')
+}
+
+export async function deleteGoal(formData: FormData) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) throw new Error('Unauthorized');
+
+    const goalId = formData.get('goal_id') as string
+
+    const { error } = await supabase
+        .from('goals')
+        .delete()
+        .eq('id', goalId)
+        .eq('user_id', user.id)
+
+    if (error) {
+        console.error('Failed to delete goal:', error)
+        throw new Error(error.message);
+    }
+
+    revalidatePath('/settings', 'page')
+    revalidatePath('/dashboard', 'page')
+}
+
+export async function createCategory(formData: FormData) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) throw new Error('Unauthorized');
+
+    const name = formData.get('name') as string
+    const type = formData.get('type') as 'asset' | 'liability'
+
+    if (!name || !type) throw new Error('Name and type are required');
+
+    const { error } = await supabase
+        .from('categories')
+        .insert({
+            user_id: user.id,
+            name,
+            type,
+            is_active: true
+        })
+
+    if (error) {
+        console.error('Failed to create category:', error)
+        throw new Error(error.message);
+    }
+
+    revalidatePath('/settings', 'page')
+}
+
+export async function deleteCategory(formData: FormData) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) throw new Error('Unauthorized');
+
+    const categoryId = formData.get('categoryId') as string
+
+    const { error } = await supabase
+        .from('categories')
+        .delete()
+        .eq('id', categoryId)
+        .eq('user_id', user.id)
+
+    if (error) {
+        console.error('Failed to delete category:', error)
+        throw new Error(error.message);
+    }
+
+    revalidatePath('/settings', 'page')
+}
+
+export async function deleteCategoryGroup(formData: FormData) {
+    const supabase = await createClient()
+    const { data: { user } } = await supabase.auth.getUser()
+
+    if (!user) throw new Error('Unauthorized');
+
+    const groupId = formData.get('groupId') as string
+
+    const { error } = await supabase
+        .from('category_groups')
+        .delete()
+        .eq('id', groupId)
+        .eq('user_id', user.id)
+
+    if (error) {
+        console.error('Failed to delete group:', error)
+        throw new Error(error.message);
+    }
+
+    revalidatePath('/settings', 'page')
+}
+

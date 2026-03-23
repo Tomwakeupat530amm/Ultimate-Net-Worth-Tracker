@@ -15,19 +15,7 @@ export function KpiCards({ kpi, metadata, currentFrom, currentTo }: KpiCardsProp
     const isPositiveGrowth = kpi.netWorthGrowth > 0
 
     return (
-        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-5 w-full">
-            {/* 1. Selected Focus Month */}
-            <PremiumCard className="p-4 flex flex-col justify-between items-center text-center shadow-sm">
-                <span className="text-[11px] font-bold text-[#111111] dark:text-[#F7F6F3] mb-2 uppercase tracking-wide">Selected Focus Month</span>
-                <div className="flex flex-col items-center justify-center gap-2 w-full">
-                    <span className="text-xl xl:text-2xl font-bold text-[#111111] dark:text-[#F7F6F3] bg-white dark:bg-transparent tracking-tight leading-none">
-                        {kpi.latestMonthLabel || 'N/A'}
-                    </span>
-                    <span className="text-[9px] text-[#787774] dark:text-[#A1A1AA] uppercase font-bold tracking-widest bg-[#FBFBFA] dark:bg-[#111111] px-2 py-0.5 rounded">
-                        {currentTo && currentTo !== metadata?.latestTrackedDate ? 'FOCUS PERIOD' : 'LATEST MONTH'}
-                    </span>
-                </div>
-            </PremiumCard>
+        <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4 w-full">
 
             {/* 2. Net Worth */}
             <PremiumCard className="p-4 flex flex-col justify-between items-center text-center shadow-sm">

@@ -53,10 +53,10 @@ export function TimeSpanSelector({ firstTrackedDate, latestTrackedDate, currentF
 
     return (
         <div className="grid grid-cols-2 text-center text-xs h-full bg-white dark:bg-[#050505]">
-            <div className="flex flex-col border-r border-[#EAEAEA] dark:border-[#333333] px-0.5 justify-center overflow-hidden">
-                <span className="font-semibold text-[#787774] dark:text-[#A1A1AA] mb-[1px] text-[8px] uppercase tracking-tighter shrink-0">From</span>
+            <div className="flex flex-col border-r border-[#EAEAEA] dark:border-[#333333] px-2 py-2 justify-center overflow-hidden hover:bg-[#FBFBFA] dark:hover:bg-[#111111] transition-colors">
+                <span className="font-bold text-[#787774] dark:text-[#A1A1AA] mb-0.5 text-[9px] uppercase tracking-wider shrink-0">From</span>
                 <Select value={displayFrom} onValueChange={(v) => updateParams('from', v || '')}>
-                    <SelectTrigger className="h-6 text-[9px] border-none bg-transparent hover:bg-[#F4F9F4] dark:hover:bg-[#0D211A] text-[#346538] dark:text-[#34D399] font-mono px-1 py-0 shadow-none focus:ring-0">
+                    <SelectTrigger className="h-7 text-[10px] border-none bg-transparent hover:bg-transparent text-[#111111] dark:text-[#F7F6F3] font-mono px-0 shadow-none focus:ring-0">
                         <SelectValue placeholder="From" />
                     </SelectTrigger>
                     <SelectContent>
@@ -68,10 +68,10 @@ export function TimeSpanSelector({ firstTrackedDate, latestTrackedDate, currentF
                     </SelectContent>
                 </Select>
             </div>
-            <div className="flex flex-col px-0.5 justify-center overflow-hidden">
-                <span className="font-semibold text-[#787774] dark:text-[#A1A1AA] mb-[1px] text-[8px] uppercase tracking-tighter shrink-0">To (Focus)</span>
+            <div className="flex flex-col px-2 py-2 justify-center overflow-hidden hover:bg-[#FBFBFA] dark:hover:bg-[#111111] transition-colors">
+                <span className="font-bold text-[#787774] dark:text-[#A1A1AA] mb-0.5 text-[9px] uppercase tracking-wider shrink-0">To (Focus)</span>
                 <Select value={displayTo} onValueChange={(v) => updateParams('to', v || '')}>
-                    <SelectTrigger className="h-6 text-[9px] border-none bg-transparent hover:bg-[#F4F9F4] dark:hover:bg-[#0D211A] text-[#346538] dark:text-[#34D399] font-mono px-1 py-0 shadow-none focus:ring-0">
+                    <SelectTrigger className="h-7 text-[10px] border-none bg-transparent hover:bg-transparent text-[#3B82F6] dark:text-[#60A5FA] font-mono px-0 shadow-none focus:ring-0">
                         <SelectValue placeholder="To" />
                     </SelectTrigger>
                     <SelectContent>

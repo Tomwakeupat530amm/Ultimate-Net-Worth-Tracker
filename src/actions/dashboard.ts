@@ -200,7 +200,7 @@ export async function getDashboardData(providedStartDate?: string, providedEndDa
     }
 
     // 6. Fetch Goals
-    const { data: goals } = await supabase.from('goals').select('*').eq('user_id', user.id)
+    const { data: goals } = await supabase.from('goals').select('*').eq('user_id', user.id).order('target_amount', { ascending: true })
     const userGoals = goals || []
     const processedGoals = userGoals.map(g => {
         const completionRaw = (kpi.netWorth / g.target_amount) * 100

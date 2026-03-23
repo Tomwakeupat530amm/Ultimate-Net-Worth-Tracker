@@ -7,6 +7,16 @@ import { PremiumCard } from '@/components/ui/PremiumCard'
 import { getTranslations } from 'next-intl/server'
 import { format, subYears, parseISO } from 'date-fns'
 
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
+    const params = await props.params;
+    const locale = params.locale;
+    const t = await getTranslations({ locale, namespace: 'Dashboard' });
+    return {
+        title: `${t('title')} - Net Worth Tracker`,
+    };
+}
+
+
 interface PageProps {
     params: Promise<{ locale: string }>
     searchParams: Promise<{ from?: string; to?: string }>
@@ -38,6 +48,21 @@ export default async function DashboardPage({ params, searchParams }: PageProps)
 
     return (
         <div className="flex flex-col gap-6 w-full max-w-[1600px] mx-auto p-4 md:p-6 lg:p-8 pb-32 animate-in fade-in duration-500">
+            {/* Header with Focus Month */}
+            <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 px-1">
+                <div>
+                    <h1 className="text-2xl font-bold tracking-tight text-[#111111] dark:text-[#F7F6F3]">
+                        {t('title')}
+                    </h1>
+                    <p className="text-sm text-[#787774] dark:text-[#A1A1AA]">
+                        {data.kpi.latestMonthLabel} • <span className="font-semibold">{toParam && toParam !== data.metadata.latestTrackedDate ? 'Focus Period' : 'Latest Month'}</span>
+                    </p>
+                </div>
+                <div className="flex items-center gap-2">
+                    {/* Add any global actions here later */}
+                </div>
+            </div>
+
             {/* ROW 1: KPIs */}
             <KpiCards
                 kpi={data.kpi}

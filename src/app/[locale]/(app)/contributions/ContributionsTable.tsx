@@ -26,7 +26,7 @@ export function ContributionsTable({
         startTransition(async () => {
             try {
                 await addContributionTransaction(formData)
-                toast.success('Transaction saved to ledger')
+                toast.success(t('transactionSaved'))
             } catch (e: any) {
                 toast.error(e.message)
             }
@@ -38,7 +38,7 @@ export function ContributionsTable({
         startTransition(async () => {
             try {
                 await deleteContributionTransaction(id)
-                toast.success('Transaction removed')
+                toast.success(t('transactionDeleted'))
             } catch (e: any) {
                 toast.error(e.message)
             } finally {
@@ -51,112 +51,112 @@ export function ContributionsTable({
         <div className="flex flex-col lg:flex-row gap-8 w-full">
             {/* Form */}
             <div className="w-full lg:w-1/3 shrink-0">
-                <PremiumCard className="p-6 sticky top-24">
-                    <h3 className="text-sm uppercase tracking-widest font-semibold text-[#111111] dark:text-[#F7F6F3] mb-6">New Transaction</h3>
+                <PremiumCard className="p-6 sticky top-24 border-zinc-100 dark:border-zinc-900 shadow-xl shadow-zinc-200/50 dark:shadow-none">
+                    <h3 className="text-[10px] uppercase tracking-[0.2em] font-bold text-zinc-900 dark:text-zinc-100 mb-6">{t('newTransaction')}</h3>
 
                     <form action={handleAdd} className="space-y-5">
                         <div className="space-y-2">
-                            <label className="text-[11px] font-bold uppercase tracking-widest text-[#787774] dark:text-[#A1A1AA]">Date</label>
+                            <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500 ml-1">{t('date')}</label>
                             <input
                                 name="date"
                                 type="date"
                                 required
                                 defaultValue={new Date().toISOString().split('T')[0]}
-                                className="flex h-10 w-full rounded border border-[#EAEAEA] bg-[#FBFBFA] px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#111111] dark:border-[#333333] dark:bg-[#111111] dark:focus:ring-white transition-all text-[#111111] dark:text-[#F7F6F3]"
+                                className="flex h-11 w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:focus:ring-zinc-100 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
                             />
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[11px] font-bold uppercase tracking-widest text-[#787774] dark:text-[#A1A1AA]">Category / Position</label>
+                            <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500 ml-1">{t('categoryPosition')}</label>
                             <select
                                 name="category_id"
                                 required
-                                className="flex h-10 w-full rounded border border-[#EAEAEA] bg-[#FBFBFA] px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#111111] dark:border-[#333333] dark:bg-[#111111] dark:focus:ring-white transition-all text-[#111111] dark:text-[#F7F6F3]"
+                                className="flex h-11 w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:focus:ring-zinc-100 transition-all text-zinc-900 dark:text-zinc-100 appearance-none cursor-pointer"
                             >
-                                <optgroup label="Assets">
+                                <optgroup label={t('assets')}>
                                     {assets.map(a => <option key={a.id} value={a.id}>{a.name}</option>)}
                                 </optgroup>
-                                <optgroup label="Liabilities">
+                                <optgroup label={t('liabilities')}>
                                     {liabilities.map(l => <option key={l.id} value={l.id}>{l.name}</option>)}
                                 </optgroup>
                             </select>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[11px] font-bold uppercase tracking-widest text-[#787774] dark:text-[#A1A1AA]">Amount</label>
+                            <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500 ml-1">{t('amount')}</label>
                             <div className="relative">
-                                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-[#787774] font-mono">$</span>
+                                <span className="absolute left-4 top-1/2 -translate-y-1/2 text-zinc-400 font-mono text-sm">$</span>
                                 <input
                                     name="amount"
                                     type="number"
                                     step="0.01"
                                     required
                                     placeholder="0.00"
-                                    className="flex h-10 w-full rounded border border-[#EAEAEA] bg-[#FBFBFA] pl-7 pr-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#111111] dark:border-[#333333] dark:bg-[#111111] dark:focus:ring-white transition-all text-[#111111] dark:text-[#F7F6F3] font-mono"
+                                    className="flex h-11 w-full rounded-xl border border-zinc-200 bg-zinc-50/50 pl-8 pr-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:focus:ring-zinc-100 transition-all text-zinc-900 dark:text-zinc-100 font-mono"
                                 />
                             </div>
-                            <p className="text-[11px] text-[#787774] leading-relaxed mt-1">
-                                Positive (In-flow) increases Net Worth.<br />
-                                Negative (Out-flow) decreases Net Worth.
+                            <p className="text-[10px] text-zinc-400 dark:text-zinc-500 leading-relaxed mt-1.5 ml-1 italic">
+                                {t('positiveDesc')}<br />
+                                {t('negativeDesc')}
                             </p>
                         </div>
 
                         <div className="space-y-2">
-                            <label className="text-[11px] font-bold uppercase tracking-widest text-[#787774] dark:text-[#A1A1AA]">Details / Note (Optional)</label>
+                            <label className="text-[10px] font-bold uppercase tracking-[0.15em] text-zinc-400 dark:text-zinc-500 ml-1">{t('detailsNote')}</label>
                             <input
                                 name="details"
                                 type="text"
-                                placeholder="e.g. Monthly Salary, Index Fund Buy"
-                                className="flex h-10 w-full rounded border border-[#EAEAEA] bg-[#FBFBFA] px-3 py-2 text-sm focus:outline-none focus:ring-1 focus:ring-[#111111] dark:border-[#333333] dark:bg-[#111111] dark:focus:ring-white transition-all text-[#111111] dark:text-[#F7F6F3]"
+                                placeholder={t('placeholderDetails')}
+                                className="flex h-11 w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:focus:ring-zinc-100 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-400"
                             />
                         </div>
 
-                        <Button type="submit" disabled={isPending} className="w-full bg-[#111111] dark:bg-white text-white dark:text-[#111111] hover:bg-[#333333] dark:hover:bg-[#EAEAEA] rounded font-semibold tracking-wide h-10 mt-4">
+                        <Button type="submit" disabled={isPending} className="w-full bg-zinc-900 dark:bg-zinc-50 text-zinc-50 dark:text-zinc-900 hover:bg-zinc-800 dark:hover:bg-zinc-200 rounded-full font-bold tracking-wide h-11 mt-4 transition-all shadow-lg shadow-zinc-200 dark:shadow-none active:scale-[0.98]">
                             {isPending && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
-                            Record Transaction
+                            {t('recordTransaction')}
                         </Button>
                     </form>
                 </PremiumCard>
             </div>
 
             {/* List */}
-            <div className="w-full lg:w-2/3 h-fit border border-[#EAEAEA] dark:border-[#333333] rounded-xl overflow-hidden bg-white dark:bg-[#050505] shadow-[0_2px_8px_rgba(0,0,0,0.02)]">
+            <div className="w-full lg:w-2/3 h-fit border border-zinc-100 dark:border-zinc-900 rounded-2xl overflow-hidden bg-white dark:bg-zinc-950 shadow-xl shadow-zinc-200/40 dark:shadow-none">
                 {initialEntries.length === 0 ? (
-                    <div className="p-12 text-center text-[#787774] font-mono text-sm border-b border-[#EAEAEA] dark:border-[#333333]">
-                        No transactions recorded yet.
+                    <div className="p-12 text-center text-zinc-400 font-medium text-sm italic">
+                        {t('noTransactions')}
                     </div>
                 ) : (
                     <div className="w-full overflow-x-auto">
                         <table className="w-full text-sm text-left border-collapse min-w-[600px]">
-                            <thead className="bg-[#FBFBFA] dark:bg-[#111111] text-[#787774] dark:text-[#A1A1AA] font-semibold uppercase text-[10px] tracking-widest">
+                            <thead className="bg-zinc-50/80 dark:bg-zinc-900/50 backdrop-blur-md text-zinc-400 dark:text-zinc-500 font-bold uppercase text-[10px] tracking-[0.2em]">
                                 <tr>
-                                    <th className="px-6 py-4 border-b border-[#EAEAEA] dark:border-[#333333]">Date</th>
-                                    <th className="px-6 py-4 border-b border-[#EAEAEA] dark:border-[#333333]">Position</th>
-                                    <th className="px-6 py-4 border-b border-[#EAEAEA] dark:border-[#333333]">Details</th>
-                                    <th className="px-6 py-4 border-b border-[#EAEAEA] dark:border-[#333333] text-right">Amount</th>
-                                    <th className="px-6 py-4 border-b border-[#EAEAEA] dark:border-[#333333] text-right w-16"></th>
+                                    <th className="px-6 py-4 border-b border-zinc-100 dark:border-zinc-900 font-bold">{t('date')}</th>
+                                    <th className="px-6 py-4 border-b border-zinc-100 dark:border-zinc-900 font-bold">{t('position')}</th>
+                                    <th className="px-6 py-4 border-b border-zinc-100 dark:border-zinc-900 font-bold">{t('details')}</th>
+                                    <th className="px-6 py-4 border-b border-zinc-100 dark:border-zinc-900 font-bold text-right">{t('amount')}</th>
+                                    <th className="px-6 py-4 border-b border-zinc-100 dark:border-zinc-900 font-bold text-right w-16"></th>
                                 </tr>
                             </thead>
-                            <tbody className="divide-y divide-[#EAEAEA] dark:divide-[#333333]">
+                            <tbody className="divide-y divide-zinc-50 dark:divide-zinc-900/50">
                                 {initialEntries.map(entry => {
                                     const isPositive = entry.amount > 0
 
                                     return (
-                                        <tr key={entry.id} className="hover:bg-[#FBFBFA] dark:hover:bg-[#111111] transition-colors group">
-                                            <td className="px-6 py-4 whitespace-nowrap text-[#787774] dark:text-[#A1A1AA] font-mono text-xs">
+                                        <tr key={entry.id} className="hover:bg-zinc-50/50 dark:hover:bg-zinc-900/30 transition-colors group">
+                                            <td className="px-6 py-4 whitespace-nowrap text-zinc-400 dark:text-zinc-500 font-mono text-xs">
                                                 {entry.date}
                                             </td>
-                                            <td className="px-6 py-4 font-medium text-[#111111] dark:text-[#F7F6F3]">
+                                            <td className="px-6 py-4 font-medium text-zinc-900 dark:text-zinc-100">
                                                 {entry.categories?.name}
-                                                <span className="ml-2 text-[10px] uppercase px-1.5 py-0.5 rounded-full bg-[#EAEAEA] dark:bg-[#333333] text-[#787774] dark:text-[#A1A1AA]">
+                                                <span className={`ml-2 text-[9px] font-bold uppercase px-2 py-0.5 rounded-full ${entry.type === 'asset' ? 'bg-emerald-50 text-emerald-600 dark:bg-emerald-950/30 dark:text-emerald-400' : 'bg-rose-50 text-rose-600 dark:bg-rose-950/30 dark:text-rose-400'}`}>
                                                     {entry.type}
                                                 </span>
                                             </td>
-                                            <td className="px-6 py-4 text-[#787774] dark:text-[#A1A1AA]">
-                                                {entry.details || <span className="opacity-50">-</span>}
+                                            <td className="px-6 py-4 text-zinc-500 dark:text-zinc-400 italic text-xs">
+                                                {entry.details || <span className="opacity-30">-</span>}
                                             </td>
                                             <td className="px-6 py-4 text-right font-mono tabular-nums">
-                                                <div className={`flex items-center justify-end gap-1.5 ${isPositive ? 'text-[#346538] dark:text-[#34D399]' : 'text-[#9F2F2D] dark:text-[#FB7185]'}`}>
+                                                <div className={`flex items-center justify-end gap-1.5 font-bold ${isPositive ? 'text-emerald-600 dark:text-emerald-400' : 'text-rose-600 dark:text-rose-400'}`}>
                                                     {isPositive ? <ArrowUpRight className="w-3.5 h-3.5" /> : <ArrowDownRight className="w-3.5 h-3.5" />}
                                                     {Math.abs(entry.amount).toLocaleString('en-US')}
                                                 </div>
@@ -165,11 +165,15 @@ export function ContributionsTable({
                                                 <Button
                                                     variant="ghost"
                                                     size="sm"
-                                                    onClick={() => handleDelete(entry.id)}
+                                                    onClick={() => {
+                                                        if (confirm(t('confirmDelete'))) {
+                                                            handleDelete(entry.id)
+                                                        }
+                                                    }}
                                                     disabled={loadingId === entry.id}
-                                                    className="h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-opacity text-rose-500 hover:text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30"
+                                                    className="h-8 w-8 p-0 opacity-0 group-hover:opacity-100 transition-all text-zinc-300 hover:text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-full"
                                                 >
-                                                    {loadingId === entry.id ? <Loader2 className="w-4 h-4 animate-spin text-[#787774]" /> : <Trash2 className="w-4 h-4" />}
+                                                    {loadingId === entry.id ? <Loader2 className="w-4 h-4 animate-spin text-zinc-400" /> : <Trash2 className="w-3.5 h-3.5" />}
                                                 </Button>
                                             </td>
                                         </tr>

@@ -47,7 +47,7 @@ export function NetWorthChart({ data, goals, height = 300 }: { data: any[], goal
                         </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'} />
-                    <XAxis dataKey="label" className="text-[10px]" tick={{ fill: '#787774' }} axisLine={false} tickLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
+                    <XAxis dataKey="label" className="text-[10px]" tick={{ fill: '#787774' }} axisLine={false} tickLine={false} dy={10} angle={-45} textAnchor="end" height={60} interval="preserveStartEnd" minTickGap={30} />
                     <YAxis
                         className="text-[10px]"
                         tick={{ fill: '#787774' }}
@@ -133,7 +133,7 @@ export function AssetLiabilityChart({ data, height = 300 }: { data: any[], heigh
                         </linearGradient>
                     </defs>
                     <CartesianGrid strokeDasharray="3 3" vertical={false} stroke={isDark ? 'rgba(255,255,255,0.05)' : 'rgba(0,0,0,0.05)'} />
-                    <XAxis dataKey="label" className="text-[10px]" tick={{ fill: '#787774' }} axisLine={false} tickLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
+                    <XAxis dataKey="label" className="text-[10px]" tick={{ fill: '#787774' }} axisLine={false} tickLine={false} dy={10} angle={-45} textAnchor="end" height={60} interval="preserveStartEnd" minTickGap={30} />
                     <YAxis
                         className="text-[10px]"
                         tick={{ fill: '#787774' }}

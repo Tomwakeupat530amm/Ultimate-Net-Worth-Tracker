@@ -3,9 +3,15 @@ import { createClient } from '@/utils/supabase/server';
 import { NetWorthTable } from './NetWorthTable';
 import { StaggerContainer, StaggerItem } from '@/components/ui/StaggerReveal';
 
-export const metadata = {
-    title: 'Net Worth - Net Worth Tracker',
+export async function generateMetadata(props: { params: Promise<{ locale: string }> }) {
+    const params = await props.params;
+    const locale = params.locale;
+    const t = await getTranslations({ locale, namespace: 'NetWorth' });
+    return {
+        title: `${t('title')} - Net Worth Tracker`,
+    };
 }
+
 
 export default async function NetWorthPage() {
     const t = await getTranslations('NetWorth');
