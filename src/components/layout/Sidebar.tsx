@@ -1,10 +1,11 @@
 'use client'
 
 import { useState, useEffect } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 import { Settings, ChevronLeft, ChevronRight, DollarSign, PieChart, ArrowRightLeft, HelpCircle } from 'lucide-react'
+import { useUIStore } from '@/store/uiStore'
 
 import { cn } from '@/lib/utils'
 
@@ -12,6 +13,8 @@ export function Sidebar() {
     const [isCollapsed, setIsCollapsed] = useState(false)
     const [mounted, setMounted] = useState(false)
     const pathname = usePathname()
+    const router = useRouter()
+    const { setIsNavigating } = useUIStore()
 
     useEffect(() => { setMounted(true) }, [])
 
@@ -31,11 +34,19 @@ export function Sidebar() {
 
     const isActive = (href: string) => pathname.includes(href)
 
+    const handleNav = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+        // Find if target is same as current (ignoring locale prefix)
+        const purePathname = pathname.replace(/^\/(en|vi)/, '') || '/dashboard'
+        if (purePathname === href) return
+
+        setIsNavigating(true)
+    }
+
     if (!mounted) return null // block hydration mismatch
 
     return (
         <div className={cn(
-            "flex flex-col border-r bg-white dark:bg-zinc-950 transition-all duration-300",
+            "flex flex-col border-r bg-white dark:bg-zinc-950 transition-all duration-300 relative z-20",
             isCollapsed ? "w-16" : "w-64"
         )}>
             <div className="flex h-14 items-center justify-between border-b px-4 border-gray-200 dark:border-zinc-800">
@@ -53,6 +64,7 @@ export function Sidebar() {
                         <li key={item.name}>
                             <Link
                                 href={item.href}
+                                onClick={(e) => handleNav(e, item.href)}
                                 className={cn(
                                     "flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors",
                                     isActive(item.href)
