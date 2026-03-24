@@ -29,6 +29,7 @@ interface LoginFormProps {
 export default function LoginForm({ t }: LoginFormProps) {
     const [mode, setMode] = useState<'login' | 'signup'>('login')
     const [isLoading, setIsLoading] = useState(false)
+    const [isSuccess, setIsSuccess] = useState(false)
     const router = useRouter()
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
@@ -55,7 +56,10 @@ export default function LoginForm({ t }: LoginFormProps) {
             setIsLoading(false)
         } else if (result?.success) {
             if (result.confirmationRequired) {
-                toast.success(t.checkEmail)
+                toast.success(t.checkEmail, {
+                    duration: 10000,
+                })
+                setIsSuccess(true)
                 setIsLoading(false)
             } else {
                 router.push('/dashboard')
@@ -64,6 +68,34 @@ export default function LoginForm({ t }: LoginFormProps) {
         } else {
             setIsLoading(false)
         }
+    }
+
+    if (isSuccess) {
+        return (
+            <div className="w-full max-w-md mx-auto">
+                <motion.div
+                    initial={{ opacity: 0, scale: 0.95 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    className="relative bg-white/80 dark:bg-black/80 backdrop-blur-xl border border-gray-200 dark:border-zinc-800 rounded-3xl shadow-2xl p-8 text-center"
+                >
+                    <div className="w-20 h-20 bg-blue-500/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                        <Mail className="w-10 h-10 text-blue-500" />
+                    </div>
+                    <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">
+                        Verification Sent
+                    </h2>
+                    <p className="text-gray-500 dark:text-zinc-400 mb-8 leading-relaxed">
+                        {t.checkEmail}
+                    </p>
+                    <Button
+                        onClick={() => setIsSuccess(false)}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded-xl py-6"
+                    >
+                        {t.login}
+                    </Button>
+                </motion.div>
+            </div>
+        )
     }
 
     return (
@@ -199,7 +231,7 @@ export default function LoginForm({ t }: LoginFormProps) {
                             {mode === 'login' ? t.dontHaveAccount : t.alreadyHaveAccount}
                             <button
                                 onClick={() => setMode(mode === 'login' ? 'signup' : 'login')}
-                                className="text-blue-600 dark:text-blue-400 font-bold hover:underline underline-offset-4 flex items-center gap-1 group/link"
+                                className="text-blue-600 dark:text-blue-400 font-bold hover:underline underline-offset-4 flex items-center gap-1 group/link transition-all"
                             >
                                 {mode === 'login' ? t.signup : t.login}
                                 <ArrowRight className="w-3 h-3 group-hover/link:translate-x-1 transition-transform" />

@@ -1,5 +1,4 @@
 import { AppLayout } from '@/components/layout/AppLayout'
-import { Toaster } from '@/components/ui/sonner'
 
 export default function ProtectedLayout({
     children,
@@ -7,9 +6,6 @@ export default function ProtectedLayout({
     children: React.ReactNode;
 }>) {
     return (
-        <>
-            <AppLayout>{children}</AppLayout>
-            <Toaster />
-        </>
+        <AppLayout>{children}</AppLayout>
     )
 }
