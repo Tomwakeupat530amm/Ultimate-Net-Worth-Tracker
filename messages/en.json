@@ -6,7 +6,7 @@
     "password": "Password",
     "confirmPassword": "Confirm Password",
     "title": "Net Worth Tracker",
-    "checkEmail": "Check your email for the confirmation link.",
+    "checkEmail": "A verification link has been sent to your email address. Please follow the instructions in the email (and check your spam folder) to activate your account.",
     "welcomeBack": "Welcome Back",
     "createAccount": "Create an Account",
     "dontHaveAccount": "Don't have an account?",
