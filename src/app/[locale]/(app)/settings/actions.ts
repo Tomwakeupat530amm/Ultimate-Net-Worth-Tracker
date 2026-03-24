@@ -123,14 +123,25 @@ export async function updateCustomKpis(formData: FormData) {
 
     if (!user) throw new Error('Unauthorized');
 
-    const expenses = parseFloat(formData.get('custom_kpi_expenses') as string)
-    const returnRate = parseFloat(formData.get('custom_kpi_return') as string)
-    const withdrawal = parseFloat(formData.get('custom_kpi_withdrawal') as string)
+    let expenses = parseFloat(formData.get('custom_kpi_expenses') as string)
+    let returnRate = parseFloat(formData.get('custom_kpi_return') as string)
+    let withdrawal = parseFloat(formData.get('custom_kpi_withdrawal') as string)
+
+    // Always divide by 100 because the form now sends whole percentages (e.g. 7 for 7%)
+    returnRate = returnRate / 100;
+    withdrawal = withdrawal / 100;
 
     // Validation
     if (isNaN(expenses) || expenses < 0) throw new Error('Expenses must be a positive number');
-    if (isNaN(returnRate) || returnRate < 0 || returnRate > 1) throw new Error('Return rate must be between 0 and 1');
-    if (isNaN(withdrawal) || withdrawal < 0 || withdrawal > 1) throw new Error('Withdrawal rate must be between 0 and 1');
+
+    // DB limit is NUMERIC(5,4) -> max 9.9999 (999.99%)
+    // Validation in decimal form
+    if (isNaN(returnRate) || returnRate < 0 || returnRate > 9.99) {
+        throw new Error('Annual Return Rate must be between 0% and 999%');
+    }
+    if (isNaN(withdrawal) || withdrawal < 0 || withdrawal > 9.99) {
+        throw new Error('Withdrawal Rate must be between 0% and 999%');
+    }
 
     const { error } = await supabase
         .from('user_settings')

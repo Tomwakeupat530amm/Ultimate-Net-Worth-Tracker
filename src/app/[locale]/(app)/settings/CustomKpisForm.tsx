@@ -69,7 +69,8 @@ export function CustomKpisForm({ settings }: { settings: any }) {
                             name="custom_kpi_return"
                             type="number"
                             step="0.01"
-                            defaultValue={settings?.custom_kpi_return ?? 0.07}
+                            defaultValue={(settings?.custom_kpi_return ?? 0.07) * 100}
+                            placeholder="7.00"
                             className="flex h-11 w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:focus:ring-zinc-100 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-300"
                         />
                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 font-mono text-sm leading-none">%</span>
@@ -88,7 +89,8 @@ export function CustomKpisForm({ settings }: { settings: any }) {
                             name="custom_kpi_withdrawal"
                             type="number"
                             step="0.01"
-                            defaultValue={settings?.custom_kpi_withdrawal ?? 0.03}
+                            defaultValue={(settings?.custom_kpi_withdrawal ?? 0.03) * 100}
+                            placeholder="3.00"
                             className="flex h-11 w-full rounded-xl border border-zinc-200 bg-zinc-50/50 px-4 py-2 text-sm font-mono focus:outline-none focus:ring-2 focus:ring-zinc-900 dark:border-zinc-800 dark:bg-zinc-900/50 dark:focus:ring-zinc-100 transition-all text-zinc-900 dark:text-zinc-100 placeholder:text-zinc-300"
                         />
                         <span className="absolute right-4 top-1/2 -translate-y-1/2 text-zinc-400 font-mono text-sm leading-none">%</span>

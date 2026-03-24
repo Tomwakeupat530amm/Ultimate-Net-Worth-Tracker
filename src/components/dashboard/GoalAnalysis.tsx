@@ -7,11 +7,11 @@ import { format } from 'date-fns'
 export function GoalAnalysis({ goals, currentNetWorth, settings }: { goals: any[], currentNetWorth: number, settings?: any }) {
 
     // Calculate Custom KPIs using Settings
-    const assumedExpenses = Number(settings?.custom_kpi_expenses ?? 3000)
+    const assumedExpenses = Math.max(0.01, Number(settings?.custom_kpi_expenses ?? 3000))
     const assumedAnnualReturn = Number(settings?.custom_kpi_return ?? 0.07)
     const assumedWithdrawalRate = Number(settings?.custom_kpi_withdrawal ?? 0.03)
 
-    const runwayMonths = currentNetWorth > 0 ? (currentNetWorth / assumedExpenses).toFixed(0) : 0
+    const runwayMonths = currentNetWorth > 0 && assumedExpenses > 0 ? (currentNetWorth / assumedExpenses).toFixed(0) : 0
     const monthlyReturn = currentNetWorth > 0 ? ((currentNetWorth * assumedAnnualReturn) / 12).toFixed(2) : 0
     const monthlyWithdrawal = currentNetWorth > 0 ? ((currentNetWorth * assumedWithdrawalRate) / 12).toFixed(2) : 0
 
